@@ -14,6 +14,7 @@ services:
     - ./.psqlrc:/home/vscode/.psqlrc:cached,ro
     - ./.zsh_history:/home/vscode/.zsh_history:cached
     - ./.zshrc:/home/vscode/.zshrc:cached,ro
+    - ./user-abbreviations:/home/vscode/.config/zsh-abbr/user-abbreviations:cached
 
     # Overrides default command so things don't shut down after the process ends.
     command: sleep infinity

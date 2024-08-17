@@ -39,7 +39,7 @@
   // "remoteUser": "root",
 
   // ホストにファイルがない場合にディレクトリとしてマウントされるのを防ぐ
-  "initializeCommand": "touch .devcontainer/{.irb_history,.psql_history,.zsh_history}",
+  "initializeCommand": "touch .devcontainer/{.irb_history,.psql_history,.zsh_history,user-abbreviations}",
 
   // Use 'postCreateCommand' to run commands after the container is created.
   "postCreateCommand": "bin/setup"
