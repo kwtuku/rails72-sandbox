@@ -8,6 +8,11 @@ services:
 
     volumes:
     - ../..:/workspaces:cached
+    - ./.irb_history:/home/vscode/.irb_history:cached
+    - ./.irbrc:/home/vscode/.irbrc:cached,ro
+    - ./.psql_history:/home/vscode/.psql_history:cached
+    - ./.psqlrc:/home/vscode/.psqlrc:cached,ro
+    - ./.zsh_history:/home/vscode/.zsh_history:cached
     - ./.zshrc:/home/vscode/.zshrc:cached,ro
 
     # Overrides default command so things don't shut down after the process ends.

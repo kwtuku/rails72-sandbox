@@ -38,6 +38,8 @@
   // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
   // "remoteUser": "root",
 
+  // ホストにファイルがない場合にディレクトリとしてマウントされるのを防ぐ
+  "initializeCommand": "touch .devcontainer/{.irb_history,.psql_history,.zsh_history}",
 
   // Use 'postCreateCommand' to run commands after the container is created.
   "postCreateCommand": "bin/setup"
