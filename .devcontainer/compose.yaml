@@ -20,6 +20,7 @@ services:
     # FIXME: mv: cannot move '/tmp/zsh-abbr/regular-user-abbreviations_updated.pexW3j' to '/home/vscode/.config/zsh-abbr/user-abbreviations': Permission denied
     # FIXME: なので手動で変更する
     - ./user-abbreviations:/home/vscode/.config/zsh-abbr/user-abbreviations:cached
+    - gemdir:/home/vscode/.rbenv/versions/3.3.4/lib/ruby/gems/3.3.0
 
     # Overrides default command so things don't shut down after the process ends.
     command: sleep infinity
@@ -56,5 +57,6 @@ services:
         POSTGRES_PASSWORD: postgres
 
 volumes:
+  gemdir:
   redis-data:
   postgres-data:
