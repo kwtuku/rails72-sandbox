@@ -44,7 +44,7 @@
     </div>
   <% end %>
 
-  <%= form_with(scope: "ghost_meeting", model: meeting, url: refresh_new_meeting_path, method: :post, data: { "ghost-form-target": "ghostForm" }) do |f| %>
+  <%= form_with(scope: "ghost_meeting", model: meeting, url: [:refresh, meeting], method: :post, data: { "ghost-form-target": "ghostForm" }) do |f| %>
     <%= f.hidden_field :title %>
     <%= f.hidden_field :category %>
     <%= f.hidden_field :meeting_room %>

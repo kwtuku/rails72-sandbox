@@ -2,9 +2,8 @@ Rails.application.routes.draw do
   root "meetings#index"
 
   resources :meetings, only: %i[index new edit create update destroy] do
-    new do
-      post :refresh
-    end
+    post :refresh, on: :collection
+    post :refresh, on: :member
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
