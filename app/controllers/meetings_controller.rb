@@ -38,13 +38,18 @@ class MeetingsController < ApplicationController
     redirect_to meetings_path, notice: "Meeting was successfully destroyed.", status: :see_other
   end
 
+  def refresh
+    @meeting = Meeting.new(meeting_params(scope: :ghost_meeting))
+    render :new
+  end
+
   private
 
   def set_meeting
     @meeting = Meeting.find(params[:id])
   end
 
-  def meeting_params
-    params.require(:meeting).permit(:title, :category, :meeting_room, :meeting_url)
+  def meeting_params(scope: :meeting)
+    params.require(scope).permit(:title, :category, :meeting_room, :meeting_url)
   end
 end

@@ -1,40 +1,53 @@
-<%= form_with(model: meeting) do |f| %>
-  <% if meeting.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(meeting.errors.count, "error") %> prohibited this meeting from being saved:</h2>
+<%= turbo_frame_tag "meeting-form", data: { controller: "ghost-form" } do %>
+  <%= form_with(model: meeting, data: { "turbo-frame": "_top", "ghost-form-target": "originalForm" }) do |f| %>
+    <% if meeting.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(meeting.errors.count, "error") %> prohibited this meeting from being saved:</h2>
 
-      <ul>
-        <% meeting.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+        <ul>
+          <% meeting.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+      <%= f.label :title, style: "display: block" %>
+      <%= f.text_field :title %>
+    </div>
+
+    <div>
+      <%= f.label :category, style: "display: block" %>
+      <% Meeting.categories.keys.each do |name| %>
+        <%= f.radio_button :category, name, data: { action: "ghost-form#submit" } %>
+        <%= f.label :category, name, value: name %>
+      <% end %>
+    </div>
+
+    <% if meeting.real? || meeting.hybrid? %>
+      <div>
+        <%= f.label :meeting_room, style: "display: block" %>
+        <%= f.text_field :meeting_room %>
+      </div>
+    <% end %>
+
+    <% if meeting.online? || meeting.hybrid? %>
+      <div>
+        <%= f.label :meeting_url, style: "display: block" %>
+        <%= f.text_field :meeting_url %>
+      </div>
+    <% end %>
+
+    <div>
+      <%= f.button %>
     </div>
   <% end %>
 
-  <div>
-    <%= f.label :title, style: "display: block" %>
-    <%= f.text_field :title %>
-  </div>
-
-  <div>
-    <%= f.label :category, style: "display: block" %>
-    <% Meeting.categories.keys.each do |name| %>
-      <%= f.radio_button :category, name %>
-      <%= f.label :category, name, value: name %>
-    <% end %>
-  </div>
-
-  <div>
-    <%= f.label :meeting_room, style: "display: block" %>
-    <%= f.text_field :meeting_room %>
-  </div>
-
-  <div>
-    <%= f.label :meeting_url, style: "display: block" %>
-    <%= f.text_field :meeting_url %>
-  </div>
-
-  <div>
-    <%= f.button %>
-  </div>
+  <%= form_with(scope: "ghost_meeting", model: meeting, url: refresh_new_meeting_path, method: :post, data: { "ghost-form-target": "ghostForm" }) do |f| %>
+    <%= f.hidden_field :title %>
+    <%= f.hidden_field :category %>
+    <%= f.hidden_field :meeting_room %>
+    <%= f.hidden_field :meeting_url %>
+  <% end %>
 <% end %>
