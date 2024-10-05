@@ -41,7 +41,11 @@ class MeetingsController < ApplicationController
   def refresh
     @meeting = Meeting.find_by(id: params[:id]) || Meeting.new
     @meeting.assign_attributes(meeting_params(scope: :ghost_meeting))
-    render :new
+    if @meeting.persisted?
+      render :edit
+    else
+      render :new
+    end
   end
 
   private
