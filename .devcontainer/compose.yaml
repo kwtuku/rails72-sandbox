@@ -7,21 +7,21 @@ services:
       dockerfile: .devcontainer/Dockerfile
 
     volumes:
-    - ../..:/workspaces:cached
-    - ./.irb_history:/home/vscode/.irb_history:cached
-    - ./.irbrc:/home/vscode/.irbrc:cached,ro
-    - ./.psql_history:/home/vscode/.psql_history:cached
-    - ./.psqlrc:/home/vscode/.psqlrc:cached,ro
-    # FIXME: 履歴が下記の形式になっている
-    # FIXME: : 1724165879:0;pwd
-    - ./.zsh_history:/home/vscode/.zsh_history:cached
-    - ./.zshrc:/home/vscode/.zshrc:cached,ro
-    # FIXME: abbr add コマンドで権限エラー
-    # FIXME: mv: cannot move '/tmp/zsh-abbr/regular-user-abbreviations_updated.pexW3j' to '/home/vscode/.config/zsh-abbr/user-abbreviations': Permission denied
-    # FIXME: なので手動で変更する
-    - ./user-abbreviations:/home/vscode/.config/zsh-abbr/user-abbreviations:cached
-
-    # Overrides default command so things don't shut down after the process ends.
+      - ../..:/workspaces:cached
+      - ./.irb_history:/home/vscode/.irb_history:cached
+      - ./.irbrc:/home/vscode/.irbrc:cached,ro
+      - ./.psql_history:/home/vscode/.psql_history:cached
+      - ./.psqlrc:/home/vscode/.psqlrc:cached,ro
+      # FIXME: 履歴が下記の形式になっている
+      # FIXME: : 1724165879:0;pwd
+      - ./.zsh_history:/home/vscode/.zsh_history:cached
+      - ./.zshrc:/home/vscode/.zshrc:cached,ro
+      # FIXME: abbr add コマンドで権限エラー
+      # FIXME: mv: cannot move '/tmp/zsh-abbr/regular-user-abbreviations_updated.pexW3j' to '/home/vscode/.config/zsh-abbr/user-abbreviations': Permission denied
+      # FIXME: なので手動で変更する
+      - ./user-abbreviations:/home/vscode/.config/zsh-abbr/user-abbreviations:cached
+      - gemdir:/home/vscode/.rbenv/versions/3.3.4/lib/ruby/gems/3.3.0
+      # Overrides default command so things don't shut down after the process ends.
     command: sleep infinity
 
     # Uncomment the next line to use a non-root user for all processes.
@@ -30,9 +30,9 @@ services:
     # Use "forwardPorts" in **devcontainer.json** to forward an app port locally.
     # (Adding the "ports" property to this file will not forward from a Codespace.)
     depends_on:
-    - selenium
-    - redis
-    - postgres
+      - selenium
+      - redis
+      - postgres
 
   selenium:
     image: selenium/standalone-chromium
@@ -42,19 +42,20 @@ services:
     image: redis:7.2
     restart: unless-stopped
     volumes:
-    - redis-data:/data
+      - redis-data:/data
 
   postgres:
     image: postgres:16.1
     restart: unless-stopped
     networks:
-    - default
+      - default
     volumes:
-    - postgres-data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
     environment:
-        POSTGRES_USER: postgres
-        POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
 
 volumes:
+  gemdir:
   redis-data:
   postgres-data:
