@@ -4,5 +4,8 @@
 
 import { application } from "./application"
 
+import GhostFormController from "./ghost_form_controller"
+application.register("ghost-form", GhostFormController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)

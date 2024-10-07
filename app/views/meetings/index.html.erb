@@ -1,0 +1,17 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Meetings" %>
+
+<h1>Meetings</h1>
+
+<div id="meetings">
+  <% @meetings.each do |meeting| %>
+    <%= render meeting %>
+    <p>
+      <%= link_to "Edit this meeting", edit_meeting_path(meeting) %>
+      <%= button_to "Destroy this meeting", meeting_path(meeting), method: :delete %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New meeting", new_meeting_path %>
